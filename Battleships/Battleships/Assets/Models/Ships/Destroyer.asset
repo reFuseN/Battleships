@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e6d40a28ba02294a9258840cf2f0b3e, type: 3}
+  m_Name: Destroyer
+  m_EditorClassIdentifier: 
+  _id: 2
+  _name: Destroyer
+  _fieldSize: 2
+  _shipObject: {fileID: 1810114816284942, guid: 55a43526fad6b5641a6f745f631f5760,
+    type: 2}

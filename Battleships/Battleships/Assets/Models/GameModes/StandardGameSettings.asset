@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17cf1119c4554b74f8bcca6e9b06962d, type: 3}
+  m_Name: StandardGameSettings
+  m_EditorClassIdentifier: 
+  _fieldSettings: {fileID: 11400000, guid: 26b06607676cb6d4e8628a9ff3e9951d, type: 2}
+  _battleships:
+  - {fileID: 11400000, guid: b28a2ea1bc07899488f176dfc4a56fc1, type: 2}
+  - {fileID: 11400000, guid: 006f77a1ccab2094990e15bc91370ba0, type: 2}
+  - {fileID: 11400000, guid: 006f77a1ccab2094990e15bc91370ba0, type: 2}
+  - {fileID: 11400000, guid: 25cafdb18ebe96640b2df4f3d09d76ac, type: 2}
+  - {fileID: 11400000, guid: 25cafdb18ebe96640b2df4f3d09d76ac, type: 2}
+  - {fileID: 11400000, guid: 25cafdb18ebe96640b2df4f3d09d76ac, type: 2}
+  - {fileID: 11400000, guid: eed6ded300aeb8b47a333e784210fa6e, type: 2}
+  - {fileID: 11400000, guid: eed6ded300aeb8b47a333e784210fa6e, type: 2}
+  - {fileID: 11400000, guid: eed6ded300aeb8b47a333e784210fa6e, type: 2}
+  - {fileID: 11400000, guid: eed6ded300aeb8b47a333e784210fa6e, type: 2}
