@@ -6,12 +6,6 @@ public abstract class AbstractFactory : MonoBehaviour
 {
 	protected GameSettingsModel _gameSettings;
 
-	protected virtual void Start()
-	{
-		SetGameSettings();
-		Build();
-	}
-
 	private void SetGameSettings()
 	{
 		if (GameController.Instance != null)
@@ -31,5 +25,8 @@ public abstract class AbstractFactory : MonoBehaviour
 		}
 	}
 
-	protected abstract void Build();
+	public virtual void Build()
+	{
+		SetGameSettings();
+	}
 }

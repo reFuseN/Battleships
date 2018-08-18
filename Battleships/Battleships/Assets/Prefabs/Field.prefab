@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 224247953219337868}
   - component: {fileID: 222704611508381650}
   - component: {fileID: 114379328600768044}
-  - component: {fileID: 114202974477908566}
   - component: {fileID: 114411361534920628}
   m_Layer: 5
   m_Name: Field
@@ -30,17 +29,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &114202974477908566
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1291934062534414}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd53861550fe42d4a9b4086320b3df7f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114379328600768044
 MonoBehaviour:
   m_ObjectHideFlags: 1

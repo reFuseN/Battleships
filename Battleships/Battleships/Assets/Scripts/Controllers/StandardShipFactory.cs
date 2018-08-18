@@ -8,8 +8,17 @@ public class StandardShipFactory : AbstractFactory
 	[SerializeField]
 	private ShipSettingsModel _shipSettings;
 
-	protected override void Build()
+	private void Awake()
 	{
+		Build();
+	}
+
+	public override void Build()
+	{
+		//initialization of building process
+		base.Build();
+
+		// bulding process
 		for (int i = 0; i < _shipSettings.FieldSize; i++)
 		{
 			GameObject shipField = Instantiate(_gameSettings.FieldSettings.FieldPrefab, this.transform);

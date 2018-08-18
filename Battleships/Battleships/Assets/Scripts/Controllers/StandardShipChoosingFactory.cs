@@ -6,14 +6,13 @@ public class StandardShipChoosingFactory : AbstractFactory
 {
 	protected RectTransform _shipChoosingField;
 
-	protected override void Start()
+	public override void Build()
 	{
+		//initialization of building
+		base.Build();
 		_shipChoosingField = GameController.Instance.ShipChoosingField;
-		base.Start();
-	}
 
-	protected override void Build()
-	{
+		//building process
 		foreach (ShipSettingsModel ship in GameController.Instance.GameSettings.Battleships)
 		{
 			Instantiate(ship.ShipObject, _shipChoosingField);

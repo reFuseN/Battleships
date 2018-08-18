@@ -28,17 +28,22 @@ public class ShipController : MonoBehaviour, IPointerClickHandler
 
 	public virtual void OnPointerClick(PointerEventData eventData)
 	{
-		_isSelected = !_isSelected;
+		// deselect current ship that is selected, if there is one
+		if (GameController.Instance.SelectedShip != null)
+			GameController.Instance.SelectedShip.SelectThisShip(false);
+
+		// select this ship
+		GameController.Instance.SelectedShip = this;
+		GameController.Instance.SelectedShip.SelectThisShip(true);
+	}
+
+	public void SelectThisShip(bool value)
+	{
+		_isSelected = value;
+
 		foreach (Image img in _shipImages)
-		{
-			if (img.color == Color.blue)
-			{
-				img.color = Color.cyan;
-			}
-			else
-			{
-				img.color = Color.blue;
-			}
-		}
+			img.color = (value) ? Color.cyan : Color.blue;
+
+		GameController.Instance.SelectedShip = (value) ? this : null;
 	}
 }
