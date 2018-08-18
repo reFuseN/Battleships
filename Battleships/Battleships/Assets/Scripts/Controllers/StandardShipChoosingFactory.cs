@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShipChoosingFactory : AbstractFactory
+public class StandardShipChoosingFactory : AbstractFactory
 {
 	protected RectTransform _shipChoosingField;
 

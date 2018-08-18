@@ -19,7 +19,8 @@ public class GameController : SingletonMonoBehaviour<GameController>
 		base.Awake();
 		if (_battlefield != null)
 		{
-			_singleFieldSize = new Vector2(_battlefield.rect.width, _battlefield.rect.height);
+			_singleFieldSize = new Vector2(_battlefield.rect.width / _gameSettings.FieldSettings.Columns,
+										   _battlefield.rect.height / _gameSettings.FieldSettings.Rows);
 		}
 		else
 		{
