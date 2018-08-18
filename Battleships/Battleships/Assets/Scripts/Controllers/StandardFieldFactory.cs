@@ -5,14 +5,17 @@ using System.Collections.Generic;
 public class StandardFieldFactory : AbstractFactory
 {
     protected RectTransform _battlefield;
-	protected List<FieldController> _fields = new List<FieldController>();
-	public FieldController[] Fields { get { return _fields.ToArray(); } }
+	protected FieldController[,] _fields;
+	public FieldController[,] Fields { get { return _fields; } }
 
     public override void Build()
     {
 		// initialization of building process
 		base.Build();
 		_battlefield = GameController.Instance.Battlefield;
+		int rows = GameController.Instance.GameSettings.FieldSettings.Rows;
+		int columns = GameController.Instance.GameSettings.FieldSettings.Columns;
+		_fields = new FieldController[rows,columns];
 
 		//building process below
 		//add layout to the field and set alignments corresponding to the settings
@@ -29,9 +32,9 @@ public class StandardFieldFactory : AbstractFactory
                 //instantiate the field and set the settings of the field
                 GameObject @object = Instantiate(_gameSettings.FieldSettings.FieldPrefab, _battlefield.transform);
 				FieldController field = @object.AddComponent<FieldController>();
-				field.Row = (uint)i + 1;
-				field.Column = (uint)j + 1;
-				_fields.Add(field);
+				field.Row = (uint)i;
+				field.Column = (uint)j;
+				_fields[i, j] = field;
             }
         }
     }

@@ -9,6 +9,7 @@ public class GameController : SingletonMonoBehaviour<GameController>
 	
 	[SerializeField]
 	private StandardFieldFactory _fieldFactory;
+	public StandardFieldFactory FieldFactory { get { return _fieldFactory; } }
 
 	[SerializeField]
 	protected RectTransform _battlefield;
@@ -34,9 +35,14 @@ public class GameController : SingletonMonoBehaviour<GameController>
 		_singleFieldSize = new Vector2(_battlefield.rect.width / _gameSettings.FieldSettings.Columns,
 									  _battlefield.rect.height / _gameSettings.FieldSettings.Rows);
 		_fieldFactory.Build();
-		foreach (FieldController field in _fieldFactory.Fields)
+		// iterate through 2D array of the fields
+		for (int i = 0; i < _fieldFactory.Fields.GetLength(0); i++)
 		{
-			field.SetBehaviour(new ShipPlacementFieldBehaviour());
+			for (int j = 0; j < _fieldFactory.Fields.GetLength(1); j++)
+			{
+				FieldController field = _fieldFactory.Fields[i, j];
+				field.SetBehaviour(new ShipPlacementFieldBehaviour(field, _fieldFactory.Fields, field.Row, field.Column));
+			}
 		}
 
 		_shipChoosingFactory.Build();
