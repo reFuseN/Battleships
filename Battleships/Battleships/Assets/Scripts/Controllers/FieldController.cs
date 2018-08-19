@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class FieldController : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
@@ -30,23 +31,55 @@ public class FieldController : MonoBehaviour, IPointerClickHandler, IPointerEnte
 			_column = value;
 		}
 	}
+	protected Image _image;
+	public Image Image { get { return _image; } }
+
+	protected bool _isContainingShip = false;
+	public bool IsContainingShip
+	{
+		get
+		{
+			return _isContainingShip;
+		}
+		set
+		{
+			_isContainingShip = value;
+		}
+	}
+	protected bool _isDead = false;
+	public bool IsDead
+	{
+		get
+		{
+			return _isDead;
+		}
+		set
+		{
+			_isDead = value;
+		}
+	}
+
+	private void Awake()
+	{
+		_image = GetComponentInChildren<Image>();
+	}
 
 	public void SetBehaviour(FieldBehaviour behaviour)
 	{
 		_behaviour = behaviour;
 	}
 
-	public void OnPointerClick(PointerEventData eventData)
+	public virtual void OnPointerClick(PointerEventData eventData)
 	{
 		_behaviour.OnPointerClick(eventData);
 	}
 
-	public void OnPointerEnter(PointerEventData eventData)
+	public virtual void OnPointerEnter(PointerEventData eventData)
 	{
 		_behaviour.OnPointerEnter(eventData);
 	}
 
-	public void OnPointerExit(PointerEventData eventData)
+	public virtual void OnPointerExit(PointerEventData eventData)
 	{
 		_behaviour.OnPointerExit(eventData);
 	}

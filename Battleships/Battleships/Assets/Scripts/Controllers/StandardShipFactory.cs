@@ -25,8 +25,13 @@ public class StandardShipFactory : AbstractFactory
 			shipField.GetComponent<Image>().color = Color.blue;
 			shipField.GetComponent<RectTransform>().sizeDelta = GameController.Instance.SingleFieldSize;
 		}
-		ShipController controller = this.gameObject.AddComponent<ShipController>();
-		controller.ShipSettings = _shipSettings;
-		controller.SetHorizontal();
+		ShipController ship = this.gameObject.AddComponent<ShipController>();
+		ship.ShipSettings = _shipSettings;
+		ship.Alignment = ALIGNMENT_AXIS.HORIZONTAL;
+		HorizontalLayoutGroup layout = ship.gameObject.AddComponent<HorizontalLayoutGroup>();
+		layout.childForceExpandHeight = false;
+		layout.childForceExpandWidth = false;
+		layout.childControlHeight = false;
+		layout.childControlWidth = false;
 	}
 }

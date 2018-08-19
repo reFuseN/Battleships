@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameController : SingletonMonoBehaviour<GameController>
@@ -46,5 +47,17 @@ public class GameController : SingletonMonoBehaviour<GameController>
 		}
 
 		_shipChoosingFactory.Build();
+	}
+
+	public void SetSelectedShipAlignmentVertical()
+	{
+		if (SelectedShip != null)
+			SelectedShip.Alignment = ALIGNMENT_AXIS.VERTICAL;
+	}
+
+	public void SetSelectedShipAlignmentHorizontal()
+	{
+		if (SelectedShip != null)
+			SelectedShip.Alignment = ALIGNMENT_AXIS.HORIZONTAL;
 	}
 }

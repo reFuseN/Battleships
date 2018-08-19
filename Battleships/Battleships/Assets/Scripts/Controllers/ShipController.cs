@@ -33,7 +33,20 @@ public class ShipController : MonoBehaviour, IPointerClickHandler
 	protected bool _isSelected;
 	protected Image[] _shipImages;
 	protected ALIGNMENT_AXIS _alignment;
-	public ALIGNMENT_AXIS Alignment { get { return _alignment; } }
+	public ALIGNMENT_AXIS Alignment
+	{
+		get
+		{
+			return _alignment;
+		}
+		set
+		{
+			if (value != ALIGNMENT_AXIS.NONE)
+				_alignment = value;
+			else
+				Debug.LogError("You cant set alignment of ship to NONE!");
+		}
+	}
 
 	protected virtual void Awake()
 	{
@@ -59,7 +72,7 @@ public class ShipController : MonoBehaviour, IPointerClickHandler
 		}
 	}
 
-	public void SelectThisShip(bool value)
+	public virtual void SelectThisShip(bool value)
 	{
 		_isSelected = value;
 
@@ -67,35 +80,5 @@ public class ShipController : MonoBehaviour, IPointerClickHandler
 			img.color = (value) ? Color.cyan : Color.blue;
 
 		GameController.Instance.SelectedShip = (value) ? this : null;
-	}
-
-	public void SetVertical()
-	{
-		_alignment = ALIGNMENT_AXIS.VERTICAL;
-
-		HorizontalLayoutGroup oldLayout = GetComponent<HorizontalLayoutGroup>();
-		if (oldLayout != null)
-			Destroy(oldLayout);
-
-		VerticalLayoutGroup layout = gameObject.AddComponent<VerticalLayoutGroup>();
-		layout.childForceExpandHeight = false;
-		layout.childForceExpandWidth = false;
-		layout.childControlHeight = false;
-		layout.childControlWidth = false;
-	}
-
-	public void SetHorizontal()
-	{
-		_alignment = ALIGNMENT_AXIS.HORIZONTAL;
-
-		VerticalLayoutGroup oldLayout = GetComponent<VerticalLayoutGroup>();
-		if (oldLayout != null)
-			Destroy(oldLayout);
-
-		HorizontalLayoutGroup layout = gameObject.AddComponent<HorizontalLayoutGroup>();
-		layout.childForceExpandHeight = false;
-		layout.childForceExpandWidth = false;
-		layout.childControlHeight = false;
-		layout.childControlWidth = false;
 	}
 }
