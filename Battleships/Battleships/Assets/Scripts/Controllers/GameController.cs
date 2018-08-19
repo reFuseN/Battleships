@@ -26,7 +26,11 @@ public class GameController : SingletonMonoBehaviour<GameController>
 	protected RectTransform _shipChoosingField;
 	public RectTransform ShipChoosingField { get { return _shipChoosingField; } }
 
+	[HideInInspector]
 	public ShipController SelectedShip;
+
+	[SerializeField]
+	private GameObject _submitButton;
 
 	protected virtual void Start()
 	{
@@ -36,6 +40,7 @@ public class GameController : SingletonMonoBehaviour<GameController>
 		_singleFieldSize = new Vector2(_battlefield.rect.width / _gameSettings.FieldSettings.Columns,
 									  _battlefield.rect.height / _gameSettings.FieldSettings.Rows);
 		_fieldFactory.Build();
+
 		// iterate through 2D array of the fields
 		for (int i = 0; i < _fieldFactory.Fields.GetLength(0); i++)
 		{
@@ -59,5 +64,15 @@ public class GameController : SingletonMonoBehaviour<GameController>
 	{
 		if (SelectedShip != null)
 			SelectedShip.Alignment = ALIGNMENT_AXIS.HORIZONTAL;
+	}
+
+	public void ShipPositionsChosen()
+	{
+		_submitButton.SetActive(true);
+	}
+
+	public void SubmitShipPositions()
+	{
+		Debug.Log("Ship positions submitted!");
 	}
 }

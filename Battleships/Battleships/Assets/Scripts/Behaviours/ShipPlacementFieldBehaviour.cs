@@ -15,38 +15,34 @@ public class ShipPlacementFieldBehaviour : FieldBehaviour
 		if (GameController.Instance.SelectedShip != null)
 		{
 			ShipController ship = GameController.Instance.SelectedShip;
-			int row = (int)_thisField.Row;
-			int column = (int)_thisField.Column;
-			
+			int dimension = (ship.Alignment == ALIGNMENT_AXIS.VERTICAL) ? 0 : 1;
+			uint startIndex = (ship.Alignment == ALIGNMENT_AXIS.VERTICAL) ? _row : _column;
 
-			// if ship is horizontal, check for enough space in columns
-			if (ship.Alignment == ALIGNMENT_AXIS.HORIZONTAL)
+			// if there is enough space
+			if (_fields.GetLength(dimension) >= startIndex + ship.ShipSettings.FieldSize)
 			{
-				// if there is enough space
-				if (_fields.GetLength(1) >= column + ship.ShipSettings.FieldSize)
+				// go through all fields that will contain the ship and be colored
+				for (uint i = startIndex; i < startIndex + ship.ShipSettings.FieldSize; i++)
 				{
-					for (int i = column; i < column + ship.ShipSettings.FieldSize; i++)
+					if (dimension == 0)
 					{
-						_fields[row, i].Image.color = Color.blue;
-						_fields[row, i].IsContainingShip = true;
-						Destroy(GameController.Instance.SelectedShip.gameObject);
+						_fields[_row, i].Image.color = Color.blue;
+						_fields[_row, i].IsContainingShip = true;
 					}
+					else
+					{
+						_fields[i, _column].Image.color = Color.blue;
+						_fields[i, _column].IsContainingShip = true;
+					}
+					Destroy(GameController.Instance.SelectedShip.gameObject);
 				}
 			}
-			// if ship is vertical, check for enough space in rows
-			if (ship.Alignment == ALIGNMENT_AXIS.VERTICAL)
+			
+			if (GameController.Instance.ShipChoosingField.childCount <= 1)
 			{
-				// if there is enough space
-				if (_fields.GetLength(0) >= row + ship.ShipSettings.FieldSize)
-				{
-					for (int i = row; i < row + ship.ShipSettings.FieldSize; i++)
-					{
-						_fields[i, column].Image.color = Color.blue;
-						_fields[i, column].IsContainingShip = true;
-						Destroy(GameController.Instance.SelectedShip.gameObject);
-					}
-				}
+				GameController.Instance.ShipPositionsChosen();
 			}
+			
 		}
 	}
 
@@ -64,48 +60,49 @@ public class ShipPlacementFieldBehaviour : FieldBehaviour
 	{
 		if (GameController.Instance.SelectedShip != null)
 		{
+			// set local variables that will be needed for the field validation
 			ShipController ship = GameController.Instance.SelectedShip;
-			int row = (int)_thisField.Row;
-			int column = (int)_thisField.Column;
-			bool isSettable = false;
 			List<FieldController> fieldsToColor = new List<FieldController>();
+			List<FieldController> fieldsToCheck = new List<FieldController>();
+			int dimension =  (ship.Alignment == ALIGNMENT_AXIS.VERTICAL) ? 0 : 1;
+			uint startIndex = (ship.Alignment == ALIGNMENT_AXIS.VERTICAL) ? _row : _column;
+			bool isSettable = true;
 
-			// if ship is horizontal, check for enough space in columns
-			if (ship.Alignment == ALIGNMENT_AXIS.HORIZONTAL)
+			// check if there is enough space for the ship
+			if (_fields.GetLength(dimension) >= startIndex + ship.ShipSettings.FieldSize)
 			{
-				// if there is enough space & field is not already containing ship
-				if (_fields.GetLength(1) >= column + ship.ShipSettings.FieldSize)
+				// set fields that need to be validated
+				for (uint i = startIndex; i < startIndex + ship.ShipSettings.FieldSize; i++)
 				{
-					for (int i = column; i < column + ship.ShipSettings.FieldSize; i++)
+					if (dimension == 0)
 					{
-						if (!_fields[row, i].IsContainingShip && !isSettable)
-						{
-							fieldsToColor.Add(_fields[row, i]);
-						}
-						else
-							isSettable = true;
+						fieldsToCheck.Add(_fields[i, _column]);
+					}
+					else if (dimension == 1)
+					{
+						fieldsToCheck.Add(_fields[_row, i]);
+					}
+				}
+
+				// go through fields that need to be checked
+				// if the field is not containing a ship and can be set, add it to fields that need to be colorized
+				// otherwise set isSettable to false
+				foreach (FieldController field in fieldsToCheck)
+				{
+					if (!field.IsContainingShip && isSettable)
+					{
+						fieldsToColor.Add(field);
+					}
+					else
+					{
+						isSettable = false;
 					}
 				}
 			}
-			// if ship is vertical, check for enough space in rows
-			if (ship.Alignment == ALIGNMENT_AXIS.VERTICAL)
-			{
-				// if there is enough space & fields are not containing a ship
-				if (_fields.GetLength(0) >= row + ship.ShipSettings.FieldSize)
-				{
-					for (int i = row; i < row + ship.ShipSettings.FieldSize; i++)
-					{
-						if (!_fields[i, column].IsContainingShip && !isSettable)
-						{
-							fieldsToColor.Add(_fields[i, column]);
-						}
-						else
-							isSettable = true;
-					}
-				}
-			}
-
-			if (!isSettable)
+			// if the ship can be set into the given fields &
+			// the fields should be set to active the fields will be colored like a selected ship
+			// otherwise they will be colored as usual
+			if (isSettable)
 			{
 				foreach (FieldController field in fieldsToColor)
 				{

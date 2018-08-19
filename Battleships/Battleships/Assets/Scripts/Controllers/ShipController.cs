@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public enum ALIGNMENT_AXIS
 {
-	NONE,
 	HORIZONTAL,
 	VERTICAL
 }
@@ -41,10 +40,7 @@ public class ShipController : MonoBehaviour, IPointerClickHandler
 		}
 		set
 		{
-			if (value != ALIGNMENT_AXIS.NONE)
-				_alignment = value;
-			else
-				Debug.LogError("You cant set alignment of ship to NONE!");
+			_alignment = value;
 		}
 	}
 
